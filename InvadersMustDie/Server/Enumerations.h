@@ -1,3 +1,3 @@
 #pragma once
 
-typedef enum { standy_by, creation, association, game_start, game_ongoing, game_over } game_state;
+typedef enum { standy_by, creation, association, start, ongoing, over } game_state;
