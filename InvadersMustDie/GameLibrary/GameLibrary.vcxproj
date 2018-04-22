@@ -146,8 +146,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Server\Constants.h" />
     <ClInclude Include="..\Server\Enums.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="dll.h" />
   </ItemGroup>
   <ItemGroup>

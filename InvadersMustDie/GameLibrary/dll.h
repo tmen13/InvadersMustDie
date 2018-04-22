@@ -1,8 +1,5 @@
 #pragma once
-
-#include <windows.h>
-#include <tchar.h>
-#include <string>
+#include "../Server/Enums.h"
 
 //Este .h deve ser incluído no projeto que o vai usar (modo implícito)
 
@@ -16,9 +13,9 @@
 
 struct invader
 {
-	std::string name;
+	invasor_type type;;
 	int lp;
-	int movement; //1 => linear; 2 => random
+	movement_type movement; //1 => linear; 2 => random
 	int pace; //number of steps that the monster can have after the cooldown time been 
 	int cooldown; //time, in miliseconds, that the monsters freezes after each movement
 	int fireRate; //shots for each N movement
@@ -26,12 +23,11 @@ struct invader
 
 struct powerup
 {
-	std::string name;
-	int duration; //1 => temporary
-	int occurrence; //1 => commun, 2 => rare, 3 => very rare
+	powerup_type type;
+	powerup_duration_type duration_type;
+	int duration; //0 => permanent
+	occurrence_type occurrence; 
 };
-
-
 
 extern "C"
 {

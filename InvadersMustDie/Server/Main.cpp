@@ -130,7 +130,7 @@ wWinMain(
 
 //testa dll
 
-#include "..\..\..\repos\InvadersMustDie\GameLibrary\dll.h"
+#include "../GameLibrary/dll.h"
 
 int _tmain(int argc, TCHAR *argv[])
 {

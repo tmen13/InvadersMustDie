@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-#include "..\..\..\repos\InvadersMustDie\GameLibrary\dll.h"
+#include "../GameLibrary/dll.h"
 
 int _tmain(int argc, TCHAR *argv[])
 {
