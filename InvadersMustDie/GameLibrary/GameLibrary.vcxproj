@@ -148,6 +148,10 @@
   <ItemGroup>
     <ClInclude Include="..\Server\Constants.h" />
     <ClInclude Include="..\Server\Enums.h" />
+    <ClInclude Include="dll.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dll.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
