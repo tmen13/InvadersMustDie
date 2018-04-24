@@ -1,3 +1,20 @@
+/*  USAR DESTA MANEIRA
+
+// DECLDIR will perform an export for us
+#define DLL_EXPORT
+
+// Include our header, must come after #define DLL_EXPORT
+
+#include "dll.h"
+
+// Get rid of name mangeling
+int Add(int a, int b)
+{
+return (a + b);
+}
+
+*/
+
 #pragma once
 #include "../Server/Enums.h"
 #include "Constants.h"
