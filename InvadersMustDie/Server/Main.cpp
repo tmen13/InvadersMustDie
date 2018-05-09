@@ -16,7 +16,6 @@ WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 	PAINTSTRUCT ps;
 	HDC hdc;
-	char teste[5];
 
 	TCHAR greeting[100];
 	swprintf(greeting, 100, TEXT("Power up: %hs"), powerup_type_string[ajux.type]);

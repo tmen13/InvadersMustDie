@@ -14,12 +14,6 @@
 #define DECLDIR __declspec(dllimport)
 #endif
 
-struct field
-{
-	char field_size[MAX_SIZE_LARGE][MAX_SIZE_LARGE];
-	int n_invaders; //number of invaders left
-};
-
 struct invader
 {
 	invader_type type;
@@ -58,16 +52,21 @@ struct defender
 	int length;
 	int speed;
 	int fire_rate; //speed of the shots
-				   //bool hasShield; // true if defender got "Escudo" powerup
-				   //bool isInverted; // true if defender got "Álcool" powerup
-				   //bool hasNoclip; // true if defender got "NoClip" powerup
+	//bool has_shield; // true if defender got "Escudo" powerup
+	//bool is_inverted; // true if defender got "Álcool" powerup
+	//bool has_noclip; // true if defender got "NoClip" powerup
 };
 
 struct configuration
 {
-	int n_players; //1 => singleplayer, 2 => co-op ... 3, 4 ... n players
-	int power_up_rate;
+	int n_players;
+	int power_up_trigger_rate;
+	int power_up_drop_rate;
 	int current_level;
+	int map_size;
+	int num_levels_before_boss;
+	int base_lifes;
+	int invaders_start_num;
 };
 
 struct bombs
@@ -80,10 +79,23 @@ struct bombs
 	int damage;
 };
 
+struct field
+{
+	char field_size[MAX_SIZE_LARGE][MAX_SIZE_LARGE];
+	int n_invaders; //number of invaders left
+	struct configuration config;
+};
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-	DECLDIR struct powerup get_powerup(void);
+
+	DECLDIR struct configuration load_config_file(char *file_path);
+	DECLDIR struct configuration load_default_config();
+	DECLDIR struct powerup get_powerup();
+	//DECLDIR void save_config_file(configuration *config);
+
 #ifdef __cplusplus
 }
 

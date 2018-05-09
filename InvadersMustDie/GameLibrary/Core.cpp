@@ -52,25 +52,25 @@ struct powerup set_powerup(const powerup_type type)
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = common;
-		aux.duration = POWERUP_DEFAULT_TIME; //10s by default, config will set this value
+		aux.duration = POWER_UP_DEFAULT_TIME; //10s by default, config will set this value
 		break;
 	case ice:
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = uncommon;
-		aux.duration = POWERUP_DEFAULT_TIME;
+		aux.duration = POWER_UP_DEFAULT_TIME;
 		break;
 	case battery:
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = uncommon;
-		aux.duration = POWERUP_DEFAULT_TIME;
+		aux.duration = POWER_UP_DEFAULT_TIME;
 		break;
 	case enemy_boost:
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = common;
-		aux.duration = POWERUP_DEFAULT_TIME;
+		aux.duration = POWER_UP_DEFAULT_TIME;
 		break;
 	case life:
 		aux.type = type;
@@ -82,31 +82,54 @@ struct powerup set_powerup(const powerup_type type)
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = uncommon;
-		aux.duration = POWERUP_DEFAULT_TIME;
+		aux.duration = POWER_UP_DEFAULT_TIME;
 		break;
 	case noclip:
 		aux.type = type;
 		aux.duration_type = temporary;
 		aux.occurrence = rare;
-		aux.duration = POWERUP_DEFAULT_TIME;
+		aux.duration = POWER_UP_DEFAULT_TIME;
 		break;
 	}
 
 	return aux;
 }
 
-struct configuration load_default_config(int nPlayers, int powerUpRate, int itemSpeed, int startUpLevel, int life) //this loads the values defined in constants.h as default values
+struct configuration load_default_config() //this loads the values defined in constants.h as default values
 {
-	struct configuration aux{};
+	configuration aux{};
 
-	aux.n_players = nPlayers;
-	aux.power_up_rate = powerUpRate; // %
-	aux.current_level = startUpLevel;
-
+	aux.n_players = MIN_PLAYERS_TO_PLAY;
+	aux.power_up_trigger_rate = POWER_UP_TRIGGER_RATE; // %
+	aux.power_up_drop_rate = POWER_UP_DROP_RATE; 
+	aux.map_size = MAP_SIZE_MEDIUM;
+	aux.num_levels_before_boss = NUM_LEVELS_BEFORE_BOSS;
+	aux.base_lifes = BASE_LIFES;
+	aux.current_level = 1; //on init, this will be the start level
+	aux.invaders_start_num = MIN_NUM_INVADERS;
 	return aux;
 }
 
-struct powerup get_powerup(void)
+struct configuration load_config_file(char *file_path)
+{
+	configuration aux{};
+
+	aux.n_players = MIN_PLAYERS_TO_PLAY;
+	aux.power_up_trigger_rate = POWER_UP_TRIGGER_RATE; // %
+	aux.power_up_drop_rate = POWER_UP_DROP_RATE;
+	aux.map_size = MAP_SIZE_MEDIUM;
+	aux.num_levels_before_boss = NUM_LEVELS_BEFORE_BOSS;
+	aux.base_lifes = BASE_LIFES;
+	aux.current_level = 1; //on init, this will be the start level
+	return aux;
+
+}
+
+void save_config_file(configuration *config)
+{
+}
+
+struct powerup get_powerup()
 {
 	struct powerup aux {};
 
