@@ -15,7 +15,7 @@ int _tmain(int argc, TCHAR *argv[])
 #endif
 
 
-	_tprintf(TEXT("Valor da variável da DLL: %d\n"), nDLL); //exports
+	_tprintf(TEXT("Valor da variável da DLL: %d\n"), n_dll); //exports
 
 	return 0;
 }

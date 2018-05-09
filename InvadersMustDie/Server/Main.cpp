@@ -1,30 +1,25 @@
-/*
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
-*/
+
 #include <Windows.h>
 #include <tchar.h>
-#include <io.h>
-#include <fcntl.h>
+
 #include <stdio.h>
-
-//
-//
-// WndProc - Window procedure
-//
-//
-
-/*
+#include "../GameLibrary/Core.h"
 
 LRESULT
 CALLBACK
 WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	const struct powerup ajux = get_powerup();
+
 	PAINTSTRUCT ps;
 	HDC hdc;
-	TCHAR greeting[] = _T("Vamos ter 20 nesta merda");
+	char teste[5];
 
+	TCHAR greeting[100];
+	swprintf(greeting, 100, TEXT("Power up: %hs"), powerup_type_string[ajux.type]);
 	switch (uMsg)
 	{
 	case WM_PAINT:
@@ -69,7 +64,7 @@ wWinMain(
 	wcex.cbSize = sizeof(wcex);	// WNDCLASSEX size in bytes
 	wcex.style = CS_HREDRAW | CS_VREDRAW;		// Window class styles
 	wcex.lpszClassName = TEXT("INVADERSMUSTDIECLASS");	// Window class name
-	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);	// Window background brush color.
+	wcex.hbrBackground = HBRUSH(COLOR_WINDOW + 1);	// Window background brush color.
 	wcex.hCursor = LoadCursor(hInstance, IDC_ARROW); // Window cursor
 	wcex.lpfnWndProc = WndProc;		// Window procedure associated to this window class.
 	wcex.hInstance = hInstance;	// The application instance.
@@ -123,25 +118,6 @@ wWinMain(
 	// previously allocated for this window.
 	UnregisterClass(wcex.lpszClassName, hInstance);
 
-	return (int)msg.wParam;
+	return int(msg.wParam);
 }
 
-*/
-
-//testa dll
-
-#include "../GameLibrary/dll.h"
-
-int _tmain(int argc, TCHAR *argv[])
-{
-#ifdef UNICODE
-	_setmode(_fileno(stdin), _O_WTEXT);
-	_setmode(_fileno(stdout), _O_WTEXT);
-	_setmode(_fileno(stderr), _O_WTEXT);
-#endif
-
-	
-	_tprintf(TEXT("Valor da variável da DLL: %d\n"), nDLL); //exports
-
-	return 0;
-}
