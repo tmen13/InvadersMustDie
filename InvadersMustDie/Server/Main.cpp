@@ -7,11 +7,15 @@
 
 #include <stdio.h>
 #include "../GameLibrary/Core.h"
+#include <ctime>
+#include <cstdlib>
 
 LRESULT
 CALLBACK
 WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	srand(unsigned(time(nullptr)));
+
 	const struct powerup ajux = get_powerup();
 
 	PAINTSTRUCT ps;
