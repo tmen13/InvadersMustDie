@@ -19,10 +19,14 @@ int _tmain(int argc, TCHAR *argv[])
 	struct field field;
 
 	field.config = load_default_config();
+	field.config.base_lifes = 13;
+	//save_config_file(field.config, (char *)"teste");
+
+	//struct configuration aux = load_config_file("teste");
 
 	_tprintf(TEXT("power up: %hs\n"), powerup_type_string[ajux.type]);
 
-	_tprintf(TEXT("map size: %d\n"), field.config.map_size);
+	//_tprintf(TEXT("map size: %d\n"), aux.base_lifes);
 
 	system("Pause");
 
