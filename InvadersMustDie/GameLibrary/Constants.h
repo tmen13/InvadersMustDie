@@ -12,3 +12,7 @@
 #define NUM_LEVELS_BEFORE_BOSS 5
 #define MAX_NUM_INVADERS 50
 #define MIN_NUM_INVADERS 10
+
+//Warnings constants
+#define CONFIG_SAVE_SUCCESS 0
+#define CONFIG_SAVE_ALREADY_EXISTS 1
