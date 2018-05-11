@@ -26,7 +26,7 @@ int _tmain(int argc, TCHAR *argv[])
 
 	_tprintf(TEXT("power up: %hs\n"), powerup_type_string[ajux.type]);
 
-	_tprintf(TEXT("map size: %d\n"), aux.base_lifes);
+	_tprintf(TEXT("Configuração:\n%ls"), config_to_string(aux));
 
 	system("Pause");
 

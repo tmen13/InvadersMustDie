@@ -5,6 +5,7 @@
 #pragma once
 #include "../Server/Enums.h"
 #include "Constants.h"
+#include <Windows.h>
 
 #define TAM 256
 
@@ -94,6 +95,7 @@ extern "C" {
 	DECLDIR struct configuration load_default_config();
 	DECLDIR struct powerup get_powerup();
 	DECLDIR int save_config_file(struct configuration config, char *config_name);
+	DECLDIR TCHAR* config_to_string(struct configuration config);
 
 #ifdef __cplusplus
 }

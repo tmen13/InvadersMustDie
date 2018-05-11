@@ -4,16 +4,19 @@
 #include "Constants.h"
 #include <cstdlib>
 
-#include <fstream>
+#include "fstream"
 #include <sys/stat.h>
-#include <windows.h>
+#include <atlstr.h>
+#include <string> 
+#include <sstream> 
 
+using namespace std;
 //Para verificar ao carregar a dll que a aplicação irá ocupar mais memória
 char ponteiro[40960];
 
 inline bool file_exists(const std::string& name) {
 	struct stat buffer;
-	return (stat(name.c_str(), &buffer) == 0);
+	return stat(name.c_str(), &buffer) == 0;
 }
 
 struct invader set_invader(const invader_type type)
@@ -121,7 +124,7 @@ struct configuration load_default_config() //this loads the values defined in co
 struct configuration load_config_file(const char *config_name)
 {
 	configuration aux{};
-	std::string file_name = "configs\\";
+	string file_name = "configs\\";
 	file_name += config_name;
 	file_name += ".dat";
 
@@ -129,7 +132,7 @@ struct configuration load_config_file(const char *config_name)
 		return load_default_config(); // se o ficheiro de config nao existir, carrega a config por defeito
 
 	const char* file_name_c = file_name.c_str();
-	std::ifstream input_file(file_name_c, std::ios::binary);
+	ifstream input_file(file_name_c, std::ios::binary);
 	input_file.read((char*)&aux, sizeof(aux));
 
 	return aux;
@@ -146,7 +149,7 @@ int save_config_file(struct configuration config, char *config_name)
 		if (file_exists(file_name))
 			return CONFIG_SAVE_ALREADY_EXISTS;
 
-		std::ofstream output_file(file_name, std::ios::binary);
+		ofstream output_file(file_name, std::ios::binary);
 		output_file.write((char*)&config, sizeof(config));
 		output_file.close();
 
@@ -154,6 +157,27 @@ int save_config_file(struct configuration config, char *config_name)
 	}
 
 	return CONFIG_SAVE_ERROR_SAVING;
+}
+
+TCHAR* config_to_string(struct configuration config)
+{
+	wostringstream oss;
+	oss << TEXT("Nº de jogadores: ") << config.n_players << endl
+		<< TEXT("Power Up trigger rate: ") << config.power_up_trigger_rate << TEXT(" inimigo(s) morto(s)") << endl
+		<< TEXT("Power up drop rate: ") << config.power_up_drop_rate << TEXT("%") << endl
+		<< TEXT("Tamanho do mapa: ") << config.map_size << "x" << config.map_size << endl
+		<< TEXT("Nº de níveis por boss: ") << config.num_levels_before_boss << endl
+		<< TEXT("Vida inicial: ") << config.base_lifes << endl
+		<< TEXT("Nº base de inimigos: ") << config.n_players << endl;
+
+	auto oss_to_str = oss.str();
+	const auto size = oss_to_str.length();
+
+	auto tchar_aux = new TCHAR[size + 1];
+	tchar_aux[size] = 0;
+	wcscpy_s(tchar_aux, size + 1, static_cast<const wchar_t*>(oss_to_str.c_str()));
+
+	return tchar_aux;
 }
 
 struct powerup get_powerup()
