@@ -4,8 +4,17 @@
 #include "Constants.h"
 #include <cstdlib>
 
+#include <fstream>
+#include <sys/stat.h>
+#include <windows.h>
+
 //Para verificar ao carregar a dll que a aplicação irá ocupar mais memória
 char ponteiro[40960];
+
+inline bool file_exists(const std::string& name) {
+	struct stat buffer;
+	return (stat(name.c_str(), &buffer) == 0);
+}
 
 struct invader set_invader(const invader_type type)
 {
@@ -101,32 +110,50 @@ struct configuration load_default_config() //this loads the values defined in co
 
 	aux.n_players = MIN_PLAYERS_TO_PLAY;
 	aux.power_up_trigger_rate = POWER_UP_TRIGGER_RATE; // %
-	aux.power_up_drop_rate = POWER_UP_DROP_RATE; 
-	aux.map_size = MAP_SIZE_MEDIUM;
-	aux.num_levels_before_boss = NUM_LEVELS_BEFORE_BOSS;
-	aux.base_lifes = BASE_LIFES;
-	aux.current_level = 1; //on init, this will be the start level
-	aux.invaders_start_num = MIN_NUM_INVADERS;
-	return aux;
-}
-
-struct configuration load_config_file(char *file_path)
-{
-	configuration aux{};
-
-	aux.n_players = MIN_PLAYERS_TO_PLAY;
-	aux.power_up_trigger_rate = POWER_UP_TRIGGER_RATE; // %
 	aux.power_up_drop_rate = POWER_UP_DROP_RATE;
 	aux.map_size = MAP_SIZE_MEDIUM;
 	aux.num_levels_before_boss = NUM_LEVELS_BEFORE_BOSS;
 	aux.base_lifes = BASE_LIFES;
-	aux.current_level = 1; //on init, this will be the start level
+	aux.invaders_start_num = MIN_NUM_INVADERS;
 	return aux;
-
 }
 
-void save_config_file(configuration *config)
+struct configuration load_config_file(const char *config_name)
 {
+	configuration aux{};
+	std::string file_name = "configs\\";
+	file_name += config_name;
+	file_name += ".dat";
+
+	if (!file_exists(file_name))
+		return load_default_config(); // se o ficheiro de config nao existir, carrega a config por defeito
+
+	const char* file_name_c = file_name.c_str();
+	std::ifstream input_file(file_name_c, std::ios::binary);
+	input_file.read((char*)&aux, sizeof(aux));
+
+	return aux;
+}
+
+int save_config_file(struct configuration config, char *config_name)
+{
+	std::string file_name = "configs\\";
+	file_name += config_name;
+	file_name += ".dat";
+
+	if (CreateDirectory(L"configs", nullptr) || ERROR_ALREADY_EXISTS == GetLastError()) // se a pasta nao existir, cria
+	{
+		if (file_exists(file_name))
+			return CONFIG_SAVE_ALREADY_EXISTS;
+
+		std::ofstream output_file(file_name, std::ios::binary);
+		output_file.write((char*)&config, sizeof(config));
+		output_file.close();
+
+		return CONFIG_SAVE_SUCCESS;
+	}
+
+	return CONFIG_SAVE_ERROR_SAVING;
 }
 
 struct powerup get_powerup()

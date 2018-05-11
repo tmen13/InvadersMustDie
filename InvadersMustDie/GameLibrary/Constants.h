@@ -16,3 +16,4 @@
 //Warnings constants
 #define CONFIG_SAVE_SUCCESS 0
 #define CONFIG_SAVE_ALREADY_EXISTS 1
+#define CONFIG_SAVE_ERROR_SAVING 2
