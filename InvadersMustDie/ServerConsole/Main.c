@@ -15,18 +15,19 @@ int _tmain(int argc, TCHAR *argv[])
 	_setmode(_fileno(stdout), _O_WTEXT);
 	_setmode(_fileno(stderr), _O_WTEXT);
 #endif
-	const struct powerup ajux = get_powerup();
-	struct field field;
+	//const struct powerup ajux = get_powerup();
+	//struct field field;
+	BOOL teste = TRUE;
+	//field.config = load_default_config();
+	//field.config.base_lifes = 13;
+	//save_config_file(field.config, (char *)"teste");
 
-	field.config = load_default_config();
-	field.config.base_lifes = 13;
-	save_config_file(field.config, (char *)"teste");
+	//struct configuration aux = load_config_file("teste");
+	_tprintf(TEXT("power up: %d\n"), teste);
 
-	struct configuration aux = load_config_file("teste");
+	//_tprintf(TEXT("power up: %hs\n"), powerup_type_string[ajux.type]);
 
-	_tprintf(TEXT("power up: %hs\n"), powerup_type_string[ajux.type]);
-
-	_tprintf(TEXT("Configuração:\n%ls"), config_to_string(aux));
+	//_tprintf(TEXT("Configuração:\n%ls"), config_to_string(aux));
 
 	system("Pause");
 

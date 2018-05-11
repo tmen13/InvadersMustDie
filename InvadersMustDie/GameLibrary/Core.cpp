@@ -26,7 +26,7 @@ struct invader set_invader(const invader_type type)
 	switch (type)
 	{
 	case basic:
-		aux.cooldown = 2500; //the invader must wait 3 seconds before it can make another move
+		aux.cooldown = 3000; //the invader must wait 3 seconds before it can make another move
 		aux.fire_rate = 3; // for each 3 moviments, the invader shoots
 		aux.lp = 1;
 		aux.type = type;
@@ -107,7 +107,7 @@ struct powerup set_powerup(const powerup_type type)
 	return aux;
 }
 
-struct configuration load_default_config() //this loads the values defined in constants.h as default values
+config load_default_config() //this loads the values defined in constants.h as default values
 {
 	configuration aux{};
 
@@ -121,7 +121,7 @@ struct configuration load_default_config() //this loads the values defined in co
 	return aux;
 }
 
-struct configuration load_config_file(const char *config_name)
+config load_config_file(const char *config_name)
 {
 	configuration aux{};
 	string file_name = "configs\\";
@@ -131,14 +131,14 @@ struct configuration load_config_file(const char *config_name)
 	if (!file_exists(file_name))
 		return load_default_config(); // se o ficheiro de config nao existir, carrega a config por defeito
 
-	const char* file_name_c = file_name.c_str();
+	const auto file_name_c = file_name.c_str();
 	ifstream input_file(file_name_c, std::ios::binary);
 	input_file.read((char*)&aux, sizeof(aux));
 
 	return aux;
 }
 
-int save_config_file(struct configuration config, char *config_name)
+int save_config_file(config config, char *config_name)
 {
 	std::string file_name = "configs\\";
 	file_name += config_name;
@@ -159,7 +159,7 @@ int save_config_file(struct configuration config, char *config_name)
 	return CONFIG_SAVE_ERROR_SAVING;
 }
 
-TCHAR* config_to_string(struct configuration config)
+TCHAR* config_to_string(config config)
 {
 	wostringstream oss;
 	oss << TEXT("Nº de jogadores: ") << config.n_players << endl

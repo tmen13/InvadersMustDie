@@ -53,12 +53,12 @@ struct defender
 	int length;
 	int speed;
 	int fire_rate; //speed of the shots
-				   //bool has_shield; // true if defender got "Escudo" powerup
-				   //bool is_inverted; // true if defender got "Álcool" powerup
-				   //bool has_noclip; // true if defender got "NoClip" powerup
+	BOOL has_shield;
+	BOOL is_inverted;
+	BOOL has_noclip;
 };
 
-struct configuration
+typedef struct configuration
 {
 	int n_players;
 	int power_up_trigger_rate;
@@ -67,9 +67,9 @@ struct configuration
 	int num_levels_before_boss;
 	int base_lifes;
 	int invaders_start_num;
-};
+} config;
 
-struct bombs
+struct bomb
 {
 	int x; //x cord
 	int y; //y cord of the left corner
@@ -84,18 +84,18 @@ struct field
 	char field_size[MAX_SIZE_LARGE][MAX_SIZE_LARGE];
 	int n_invaders; //number of invaders left
 	int current_level;
-	struct configuration config;
+	config config;
 };
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-	DECLDIR struct configuration load_config_file(const char *config_name);
-	DECLDIR struct configuration load_default_config();
+	DECLDIR config load_config_file(const char *config_name);
+	DECLDIR config load_default_config();
 	DECLDIR struct powerup get_powerup();
-	DECLDIR int save_config_file(struct configuration config, char *config_name);
-	DECLDIR TCHAR* config_to_string(struct configuration config);
+	DECLDIR int save_config_file(config config, char *config_name);
+	DECLDIR TCHAR* config_to_string(config config);
 
 #ifdef __cplusplus
 }
