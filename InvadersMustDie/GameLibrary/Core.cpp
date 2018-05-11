@@ -114,10 +114,11 @@ config load_default_config() //this loads the values defined in constants.h as d
 	aux.n_players = MIN_PLAYERS_TO_PLAY;
 	aux.power_up_trigger_rate = POWER_UP_TRIGGER_RATE; // %
 	aux.power_up_drop_rate = POWER_UP_DROP_RATE;
-	aux.map_size = MAP_SIZE_MEDIUM;
 	aux.num_levels_before_boss = NUM_LEVELS_BEFORE_BOSS;
 	aux.base_lifes = BASE_LIFES;
 	aux.invaders_start_num = MIN_NUM_INVADERS;
+	aux.field_height = MAP_SIZE_MEDIUM;
+	aux.field_length = MAP_SIZE_LARGE;
 	return aux;
 }
 
@@ -163,12 +164,12 @@ TCHAR* config_to_string(config config)
 {
 	wostringstream oss;
 	oss << TEXT("Nº de jogadores: ") << config.n_players << endl
-		<< TEXT("Power Up trigger rate: ") << config.power_up_trigger_rate << TEXT(" inimigo(s) morto(s)") << endl
+		<< TEXT("Power up trigger rate: ") << config.power_up_trigger_rate << TEXT(" inimigo(s) morto(s)") << endl
 		<< TEXT("Power up drop rate: ") << config.power_up_drop_rate << TEXT("%") << endl
-		<< TEXT("Tamanho do mapa: ") << config.map_size << "x" << config.map_size << endl
+		<< TEXT("Tamanho do mapa: ") << config.field_height << "x" << config.field_length << endl
 		<< TEXT("Nº de níveis por boss: ") << config.num_levels_before_boss << endl
 		<< TEXT("Vida inicial: ") << config.base_lifes << endl
-		<< TEXT("Nº base de inimigos: ") << config.n_players << endl;
+		<< TEXT("Nº base de inimigos: ") << config.invaders_start_num << endl;
 
 	auto oss_to_str = oss.str();
 	const auto size = oss_to_str.length();

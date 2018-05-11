@@ -63,10 +63,11 @@ typedef struct configuration
 	int n_players;
 	int power_up_trigger_rate;
 	int power_up_drop_rate;
-	int map_size;
 	int num_levels_before_boss;
 	int base_lifes;
 	int invaders_start_num;
+	int field_height;
+	int field_length;
 } config;
 
 struct bomb
@@ -79,9 +80,9 @@ struct bomb
 	int damage;
 };
 
-struct field
+struct game
 {
-	char field_size[MAX_SIZE_LARGE][MAX_SIZE_LARGE];
+	int game_state;
 	int n_invaders; //number of invaders left
 	int current_level;
 	config config;

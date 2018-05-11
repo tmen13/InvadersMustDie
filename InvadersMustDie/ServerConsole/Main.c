@@ -2,10 +2,18 @@
 #include <tchar.h>
 #include <io.h>
 #include <fcntl.h>
+#include <process.h>
 #include <stdio.h>
 
 #include "../GameLibrary/Core.h"
 #include <time.h>
+
+unsigned int __stdcall mythreadA(void* data)
+{
+	struct configuration aux = load_default_config();
+	_tprintf(TEXT("Configuração:\n%ls"), config_to_string(aux));
+
+}
 
 int _tmain(int argc, TCHAR *argv[])
 {
@@ -15,21 +23,15 @@ int _tmain(int argc, TCHAR *argv[])
 	_setmode(_fileno(stdout), _O_WTEXT);
 	_setmode(_fileno(stderr), _O_WTEXT);
 #endif
-	//const struct powerup ajux = get_powerup();
-	//struct field field;
-	BOOL teste = TRUE;
-	//field.config = load_default_config();
-	//field.config.base_lifes = 13;
-	//save_config_file(field.config, (char *)"teste");
 
-	//struct configuration aux = load_config_file("teste");
-	_tprintf(TEXT("power up: %d\n"), teste);
-
-	//_tprintf(TEXT("power up: %hs\n"), powerup_type_string[ajux.type]);
-
-	//_tprintf(TEXT("Configuração:\n%ls"), config_to_string(aux));
+	HANDLE myhandleA = (HANDLE)_beginthreadex(0, 0, &mythreadA, 0, CREATE_SUSPENDED, 0);
+	system("Pause");
+	ResumeThread(myhandleA);
 
 	system("Pause");
+	WaitForSingleObject(myhandleA, INFINITE);
+
+	CloseHandle(myhandleA);
 
 	return 0;
 }
